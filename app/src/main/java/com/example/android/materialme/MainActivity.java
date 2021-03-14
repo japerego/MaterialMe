@@ -21,8 +21,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /***
  * Main Activity for the Material Me app, a mock sports news application
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ArrayList<Sport> mSportsData;
     private SportsAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +56,36 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the adapter and set it to the RecyclerView.
         mAdapter = new SportsAdapter(this, mSportsData);
         mRecyclerView.setAdapter(mAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
+                .SimpleCallback(
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |
+                        ItemTouchHelper.DOWN | ItemTouchHelper.UP,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView,
+                                  RecyclerView.ViewHolder viewHolder,
+                                  RecyclerView.ViewHolder target) {
+                // Get the from and to positions.
+                int from = viewHolder.getAdapterPosition();
+                int to = target.getAdapterPosition();
 
-        // Get the data.
-        initializeData();
+                // Swap the items and notify the adapter.
+                Collections.swap(mSportsData, from, to);
+                mAdapter.notifyItemMoved(from, to);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder,
+                                 int direction) {
+                // Remove the item from the dataset.
+                mSportsData.remove(viewHolder.getAdapterPosition());
+                // Notify the adapter.
+                mAdapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        });
+
+        helper.attachToRecyclerView(mRecyclerView);
     }
 
     /**
@@ -83,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Notify the adapter of the change.
         mAdapter.notifyDataSetChanged();
+
+    }
+
+    public void resetSports(View view) {
+        initializeData();
     }
 
 }
