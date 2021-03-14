@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the adapter and set it to the RecyclerView.
         mAdapter = new SportsAdapter(this, mSportsData);
         mRecyclerView.setAdapter(mAdapter);
+
+        initializeData();
+
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper
                 .SimpleCallback(
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT |

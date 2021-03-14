@@ -37,20 +37,12 @@ class Sport {
         this.info = info;
         this.imageResource = imageResource;
     }
-    /**
-     * Gets the title of the sport.
-     *
-     * @return The title of the sport.
-     */
+
     String getTitle() {
         return title;
     }
 
-    /**
-     * Gets the info about the sport.
-     *
-     * @return The info about the sport.
-     */
+
     String getInfo() {
         return info;
     }

@@ -51,14 +51,7 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
     }
 
 
-    /**
-     * Required method for creating the viewholder objects.
-     *
-     * @param parent The ViewGroup into which the new View will be added
-     *               after it is bound to an adapter position.
-     * @param viewType The view type of the new View.
-     * @return The newly created ViewHolder.
-     */
+
     @Override
     public SportsAdapter.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
@@ -66,12 +59,7 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
                 inflate(R.layout.list_item, parent, false));
     }
 
-    /**
-     * Required method that binds the data to the viewholder.
-     *
-     * @param holder The viewholder into which the data should be put.
-     * @param position The adapter position.
-     */
+
     @Override
     public void onBindViewHolder(SportsAdapter.ViewHolder holder,
                                  int position) {
@@ -82,20 +70,13 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
         holder.bindTo(currentSport);
     }
 
-    /**
-     * Required method for determining the size of the data set.
-     *
-     * @return Size of the data set.
-     */
+
     @Override
     public int getItemCount() {
         return mSportsData.size();
     }
 
 
-    /**
-     * ViewHolder class that represents each row of data in the RecyclerView.
-     */
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Member Variables for the TextViews
@@ -103,11 +84,7 @@ class SportsAdapter extends RecyclerView.Adapter<SportsAdapter.ViewHolder>  {
         private TextView mInfoText;
         private ImageView mSportsImage;
 
-        /**
-         * Constructor for the ViewHolder, used in onCreateViewHolder().
-         *
-         * @param itemView The rootview of the list_item.xml layout file.
-         */
+
         ViewHolder(View itemView) {
             super(itemView);
 
